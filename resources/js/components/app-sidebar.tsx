@@ -9,12 +9,18 @@ import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        url: '/dashboard',
-        icon: LayoutGrid,
+        title: 'Home',
+        url: '/dashboard'
+    },
+    {
+        title: 'Explore',
+        url: '/artists'
+    },
+    {
+        title: 'DJ Sets',
+        url: '/dj-sets'
     },
 ];
-
 const footerNavItems: NavItem[] = [
     {
         title: 'Repository',
@@ -25,6 +31,34 @@ const footerNavItems: NavItem[] = [
         title: 'Documentation',
         url: 'https://laravel.com/docs/starter-kits',
         icon: BookOpen,
+    },
+];
+
+const playlistNavItems: NavItem[] = [
+    {
+        title: 'Hardgroove Techno',
+        url: '/playlists',
+        icon: Folder,
+    },
+    {
+        title: '90s Deep House',
+        url: '/playlists',
+        icon: Folder,
+    },
+    {
+        title: '90s Jungle',
+        url: '/albums',
+        icon: Folder,
+    },
+    {
+        title: '80s Synthwave',
+        url: '/tracks',
+        icon: Folder,
+    },
+    {
+        title: 'Citypop',
+        url: '/artists',
+        icon: Folder,
     },
 ];
 
@@ -45,6 +79,14 @@ export function AppSidebar() {
 
             <SidebarContent>
                 <NavMain items={mainNavItems} />
+            </SidebarContent>
+
+            <SidebarContent>
+                <NavMain items={mainNavItems} NavGroupLabel="My Collection" />
+            </SidebarContent>
+
+            <SidebarContent>
+                <NavMain items={playlistNavItems} NavGroupLabel="Playlists" />
             </SidebarContent>
 
             <SidebarFooter>
