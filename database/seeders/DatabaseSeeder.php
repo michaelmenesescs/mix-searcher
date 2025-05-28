@@ -19,5 +19,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $this->call([
+            ArtistSeeder::class,
+            AlbumSeeder::class,
+            SongSeeder::class,
+            // Add other seeders here
+        ]);
     }
 }

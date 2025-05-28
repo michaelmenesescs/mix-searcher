@@ -2,49 +2,45 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory; // Recommended to add for seeding/testing
 use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
-    //
+    use HasFactory; // Add this trait
+
     protected $fillable = [
         'title',
-        'artist',
-        'album',
-        'duration',
+        'artist_id', // Foreign key for Artist
+        'album_id',  // Foreign key for Album
+        'duration',  // Assuming this is in seconds (integer)
         'genre',
+        'external_id',
+        'external_'
     ];
 
+    // Hidden attributes are fine if you don't want to expose timestamps often
     protected $hidden = [
-        'created_at',
-        'updated_at',
+        // 'created_at', // You might want these for display sometimes
+        // 'updated_at',
     ];
 
     protected $casts = [
+        'duration' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'duration' => 'integer',
-        'genre' => 'string',
-        'artist' => 'string',
-        'album' => 'string',
-        'title' => 'string',
     ];
 
-    protected $table = 'songs'; 
+    // Eloquent infers 'songs' if your model is Song. Explicitly setting is fine too.
+    // protected $table = 'songs'; 
 
     public function artist()
     {
         return $this->belongsTo(Artist::class);
     }
 
-    public function _construct($attributes = [])
+    public function album()
     {
-        parent::__construct($attributes);
-        $this->attributes['artist_id'] = $this->artist_id;
-        $this->attributes['album_id'] = $this->album_id;
-        $this->attributes['duration'] = $this->duration;
-        $this->attributes['genre'] = $this->genre;
-        $this->attributes['title'] = $this->title;
+        return $this->belongsTo(Album::class);
     }
 }
-
