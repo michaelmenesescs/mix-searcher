@@ -1,0 +1,54 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+
+# Development files
+.env
+.env.*
+!.env.example
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+.phpunit.result.cache
+coverage
+tests
+
+# Build artifacts
+public/build
+public/hot
+public/storage
+storage/*.key
+
+# Logs
+*.log
+storage/logs/*
+
+# Cache
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
+
+# Temporary files
+*.tmp
+*.temp 

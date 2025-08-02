@@ -1,0 +1,79 @@
+# Use PHP 8.2 FPM Alpine as base image
+FROM php:8.2-fpm-alpine AS base
+
+# Install system dependencies
+RUN apk add --no-cache \
+    git \
+    curl \
+    libpng-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    sqlite \
+    sqlite-dev \
+    oniguruma-dev \
+    nodejs \
+    npm
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql pdo_sqlite mbstring exif pcntl bcmath gd
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy composer files
+COPY composer.json composer.lock ./
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy application files first
+COPY . .
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Copy package files for Node.js dependencies
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm ci --only=production
+
+# Build frontend assets
+RUN npm run build
+
+# Create storage directory and set permissions
+RUN mkdir -p storage/framework/{sessions,views,cache} \
+    && mkdir -p storage/logs \
+    && chmod -R 775 storage \
+    && chmod -R 775 bootstrap/cache
+
+# Create .env file from example if it doesn't exist
+RUN if [ ! -f .env ]; then cp .env.example .env; fi
+
+# Generate application key
+RUN php artisan key:generate --force
+
+# Run database migrations
+RUN php artisan migrate --force
+
+# Optimize for production
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
+
+# Create non-root user
+RUN addgroup -g 1000 www && \
+    adduser -u 1000 -G www -s /bin/sh -D www
+
+# Change ownership of the working directory
+RUN chown -R www:www /var/www/html
+
+# Switch to non-root user
+USER www
+
+# Expose port 9000 for PHP-FPM
+EXPOSE 9000
+
+# Start PHP-FPM
+CMD ["php-fpm"] 
