@@ -9,8 +9,31 @@ class ArtistSeeder extends Seeder
 {
     public function run(): void
     {
-        Artist::create(['name' => 'DJ Shadow']);
-        Artist::create(['name' => 'Massive Attack']);
-        Artist::create(['name' => 'Aphex Twin']);
+        $artists = [
+            'DJ Shadow',
+            'Massive Attack',
+            'Aphex Twin',
+            'Portishead',
+            'The Chemical Brothers',
+            'Underworld',
+            'Orbital',
+            'The Prodigy',
+            'Daft Punk',
+            'Moby',
+            'Fatboy Slim',
+            'The Crystal Method',
+            'Lamb',
+            'Morcheeba',
+            'Tricky',
+            'Goldie',
+            'LTJ Bukem',
+            'Roni Size',
+            'Squarepusher',
+            'Autechre',
+        ];
+
+        foreach ($artists as $artistName) {
+            Artist::firstOrCreate(['name' => $artistName]);
+        }
     }
 }
