@@ -11,12 +11,13 @@ RUN apk add --no-cache \
     unzip \
     sqlite \
     sqlite-dev \
+    postgresql-dev \
     oniguruma-dev \
     nodejs \
     npm
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql pdo_sqlite mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo_mysql pdo_pgsql pdo_sqlite mbstring exif pcntl bcmath gd
 
 # Set working directory
 WORKDIR /var/www/html

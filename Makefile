@@ -79,6 +79,21 @@ seed:
 	@echo "Running database seeders..."
 	docker exec -it laravel_app_dev php artisan db:seed
 
+# PostgreSQL commands
+postgres-shell:
+	@echo "Accessing PostgreSQL shell..."
+	docker exec -it laravel_postgres_dev psql -U postgres -d music_library
+
+postgres-logs:
+	@echo "Showing PostgreSQL logs..."
+	docker logs laravel_postgres_dev
+
+postgres-reset:
+	@echo "Resetting PostgreSQL database..."
+	docker-compose -f docker-compose.dev.yml down
+	docker volume rm mix-searcher_postgres_data
+	docker-compose -f docker-compose.dev.yml up -d
+
 # Testing
 test:
 	@echo "Running tests..."

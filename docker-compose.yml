@@ -10,7 +10,15 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./storage:/var/www/html/storage
-      - ./database:/var/www/html/database
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=music_library
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - DB_CONNECTION=pgsql
+    depends_on:
+      - postgres
     networks:
       - laravel_network
 
@@ -27,6 +35,22 @@ services:
       - app
     networks:
       - laravel_network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: laravel_postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=music_library
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - laravel_network
+
+volumes:
+  postgres_data:
 
 networks:
   laravel_network:

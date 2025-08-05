@@ -1,6 +1,6 @@
-# Laravel Application Docker Setup
+# Laravel Music Library Application Docker Setup
 
-This document provides instructions for running the Laravel application using Docker.
+This document provides instructions for running the Laravel music library application using Docker.
 
 ## Prerequisites
 
@@ -18,6 +18,8 @@ This document provides instructions for running the Laravel application using Do
 
 2. **Access the application:**
    - Open your browser and navigate to `http://localhost:8000`
+   - Dashboard: `http://localhost:8000/dashboard`
+   - Albums: `http://localhost:8000/albums`
 
 3. **Run additional commands inside the container:**
    ```bash
@@ -52,8 +54,29 @@ mix-searcher/
 ├── docker-compose.yml      # Production docker-compose
 ├── docker-compose.dev.yml  # Development docker-compose
 ├── nginx.conf              # Nginx configuration
-└── .dockerignore           # Docker ignore file
+├── .dockerignore           # Docker ignore file
+├── Makefile                # Development commands
+└── DOCKER_README.md        # This documentation
 ```
+
+## Application Features
+
+### Data Models
+- **Tracks**: Generic track model supporting multiple platforms (Spotify, Apple Music, Tidal, etc.)
+- **Albums**: Traditional album model with artist relationships
+- **Artists**: Artist information and relationships
+- **Users**: User authentication and profiles
+
+### Frontend Components
+- **MediaCard**: Reusable component for displaying tracks, albums, artists, playlists
+- **MediaGrid**: Responsive grid layout with section headers and badges
+- **Dashboard**: Main dashboard showing recently added tracks and essentials
+
+### Database Schema
+- **Generic Track Model**: Supports multiple streaming platforms
+- **External IDs**: Platform-specific identifiers
+- **Metadata Storage**: JSON fields for platform-specific data
+- **Session Management**: Database-driven sessions with extended lifetime
 
 ## Configuration
 
@@ -66,14 +89,19 @@ The application uses the following environment variables (configured in `.env`):
 - `APP_KEY`: Application encryption key
 - `APP_DEBUG`: Debug mode (true/false)
 - `APP_URL`: Application URL
-- `DB_CONNECTION`: Database connection (sqlite, mysql, etc.)
-- `DB_DATABASE`: Database name/path
+- `DB_CONNECTION`: Database connection (pgsql, mysql, etc.)
+- `DB_HOST`: Database host
+- `DB_PORT`: Database port
+- `DB_DATABASE`: Database name
+- `DB_USERNAME`: Database username
+- `DB_PASSWORD`: Database password
+- `SESSION_LIFETIME`: Session lifetime in minutes (default: 1440)
 
 ### Database
 
-The application is configured to use SQLite by default. The database file is stored in:
-- Local: `database/database.sqlite`
-- Docker: `/var/www/html/database/database.sqlite`
+The application is configured to use PostgreSQL by default. The database is managed by Docker:
+- **Development**: PostgreSQL container with persistent volume
+- **Production**: PostgreSQL container with persistent volume
 
 ## Development Workflow
 

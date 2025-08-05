@@ -38,3 +38,11 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Album {
+    id: number;
+    name: string;
+    artist: string;
+    year: number;
+    [key: string]: unknown;
+}
