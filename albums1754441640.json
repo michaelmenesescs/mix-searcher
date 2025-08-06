@@ -1,0 +1,47 @@
+[
+    {
+        "platform": "tidal",
+        "type": "album",
+        "id": "55391439",
+        "title": "Animals",
+        "artist": "Pink Floyd",
+        "artistLink": "https:\/\/www.tidal.com\/artist\/9706",
+        "upc": "886445613834",
+        "releaseDate": "222822000",
+        "duration": "2502",
+        "nbTracks": "5",
+        "albumLink": "http:\/\/www.tidal.com\/album\/55391439",
+        "picture": "https:\/\/resources.tidal.com\/images\/b912d22d\/e7e0\/410e\/8af0\/3ac2321a111a\/320x320.jpg",
+        "shareUrls": []
+    },
+    {
+        "platform": "tidal",
+        "type": "album",
+        "id": "186460912",
+        "title": "...And Justice for All (Remastered)",
+        "artist": "Metallica",
+        "artistLink": "https:\/\/www.tidal.com\/artist\/8405",
+        "upc": "850007452131",
+        "releaseDate": "589500000",
+        "duration": "3924",
+        "nbTracks": "9",
+        "albumLink": "http:\/\/www.tidal.com\/album\/186460912",
+        "picture": "https:\/\/resources.tidal.com\/images\/8902c3f7\/41ca\/48ae\/a6f2\/81da9224164f\/320x320.jpg",
+        "shareUrls": []
+    },
+    {
+        "platform": "tidal",
+        "type": "album",
+        "id": "247478983",
+        "title": "And In The Darkness, Hearts Aglow",
+        "artist": "Weyes Blood",
+        "artistLink": "https:\/\/www.tidal.com\/artist\/3970053",
+        "upc": "098787148565",
+        "releaseDate": "1668726000",
+        "duration": "2789",
+        "nbTracks": "10",
+        "albumLink": "http:\/\/www.tidal.com\/album\/247478983",
+        "picture": "https:\/\/resources.tidal.com\/images\/3fbba0f1\/1fda\/44f0\/9d4f\/a5316ddd3be4\/320x320.jpg",
+        "shareUrls": []
+    }
+]

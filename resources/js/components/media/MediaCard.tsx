@@ -72,12 +72,7 @@ export default function MediaCard({ item, type, className }: MediaCardProps) {
                         {item.subtitle}
                     </p>
                 )}
-                
-                {item.year && (
-                    <p className="text-sm text-gray-500 dark:text-gray-500">
-                        {item.year}
-                    </p>
-                )}
+
                 
                 {item.duration && type === 'song' && (
                     <p className="text-sm text-gray-500 dark:text-gray-500">
