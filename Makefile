@@ -160,12 +160,41 @@ setup:
 	make docker-up
 	@echo "3. Running migrations..."
 	make migrate
-	@echo "4. Starting Vite development server..."
+	@echo "4. Setting up Elasticsearch..."
+	make elasticsearch-setup
+	@echo "5. Starting Vite development server..."
 	npm run dev &
 	@echo ""
 	@echo "Setup complete! Your application is ready."
 	@echo "Laravel: http://localhost:8000"
 	@echo "Vite: http://localhost:5173"
+	@echo "Elasticsearch: http://localhost:9200"
+	@echo "Kibana: http://localhost:5601"
+
+# Elasticsearch commands
+elasticsearch-setup:
+	@echo "Setting up Elasticsearch..."
+	@echo "Waiting for Elasticsearch to be ready..."
+	@sleep 30
+	@echo "Creating Elasticsearch indices..."
+	docker exec -it laravel_app_dev php artisan elasticsearch:index create --force
+	@echo "Reindexing data..."
+	docker exec -it laravel_app_dev php artisan elasticsearch:index reindex --force
+	@echo "Elasticsearch setup complete!"
+
+elasticsearch-status:
+	@echo "Checking Elasticsearch status..."
+	docker exec -it laravel_app_dev php artisan elasticsearch:index status
+
+elasticsearch-reindex:
+	@echo "Reindexing data in Elasticsearch..."
+	docker exec -it laravel_app_dev php artisan elasticsearch:index reindex --force
+
+elasticsearch-reset:
+	@echo "Resetting Elasticsearch indices..."
+	docker exec -it laravel_app_dev php artisan elasticsearch:index delete --force
+	docker exec -it laravel_app_dev php artisan elasticsearch:index create --force
+	docker exec -it laravel_app_dev php artisan elasticsearch:index reindex --force
 
 # Emergency reset
 reset:
